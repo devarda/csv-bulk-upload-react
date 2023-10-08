@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import axios from "axios";
 import PurchaseOrdersStore from "../PurchaseOrdersStore";
-import { Typography } from "@mui/material";
+import { Alert, Typography } from "@mui/material";
 
 function CsvUploader() {
   const inputRef = useRef(null);
@@ -36,7 +36,7 @@ function CsvUploader() {
         );
 
         if (response.data.success) {
-          setMessage("Successfully uploaded items!", { severity: "success" });
+          setMessage("Successfully uploaded items!");
           response.data.items.forEach((item) => addPurchaseOrder(item));
           setErrors([]);
         } else {
@@ -76,6 +76,17 @@ function CsvUploader() {
       >
         Upload CSV
       </Button>
+
+      {errors.length > 0 && (
+        <Button
+          style={{ marginLeft: "10px" }}
+          variant="outlined"
+          component="span"
+          onClick={() => setErrors([])}
+        >
+          Clear Errors
+        </Button>
+      )}
       <br />
       {/* errors list in red*/}
       <div className="App__CsvUploaderErrors">
@@ -85,14 +96,21 @@ function CsvUploader() {
           </Typography>
         ))}
       </div>
-      {/* Snackbar messages */}
+      {/* Snackbar success message */}
       {message && (
         <Snackbar
           open={snackbarOpen}
           autoHideDuration={10000}
           onClose={handleCloseSnackbar}
-          message={message}
-        />
+        >
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            {message}
+          </Alert>
+        </Snackbar>
       )}
     </div>
   );
