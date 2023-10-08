@@ -30,7 +30,7 @@ function PurchaseOrdersTable() {
       width: 230,
       sortComparator: (v1, v2) =>
         new Date(v2).getTime() - new Date(v1).getTime(), // Custom comparator for date sorting
-      valueGetter: (params) => new Date(params.value).toLocaleString(),
+      valueGetter: (params) => new Date(params.value),
     },
   ];
 
