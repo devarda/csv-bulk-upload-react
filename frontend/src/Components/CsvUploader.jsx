@@ -9,6 +9,9 @@ import axios from "axios";
 import PurchaseOrdersStore from "../PurchaseOrdersStore";
 import { Alert, Typography } from "@mui/material";
 
+//axios do not error out on non 200 status codes
+axios.defaults.validateStatus = () => true;
+
 function CsvUploader() {
   const inputRef = useRef(null);
   const [message, setMessage] = React.useState("");
