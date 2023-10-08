@@ -22,10 +22,10 @@ function App() {
         const response = await fetch("/api/v1/purchase-orders/list");
         const data = await response.json();
         if (data.success && data.purchaseOrders?.length) {
-          PurchaseOrdersStore.setPurchaseOrders(data.purchaseOrders);
+          PurchaseOrdersStore.getState().setPurchaseOrders(data.purchaseOrders);
         }
       } catch (err) {
-        setMessage("Error fetching purchase orders");
+        setMessage("Error fetching purchase orders: " + err.message);
         setSnackbarOpen(true);
       }
     };
