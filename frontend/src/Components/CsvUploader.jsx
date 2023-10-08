@@ -14,6 +14,7 @@ function CsvUploader() {
   const [message, setMessage] = React.useState("");
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const { addPurchaseOrder } = PurchaseOrdersStore();
+  const [errors, setErrors] = React.useState([]);
 
   const handleUpload = async (event) => {
     const file = event.target.files[0];
@@ -23,7 +24,9 @@ function CsvUploader() {
 
       try {
         const response = await axios.post(
-          "/api/v1/purchase-orders/bulk-insert",
+          //host from .env
+          process.env.REACT_APP_API_HOST +
+            "/api/v1/purchase-orders/bulk-insert",
           formData,
           {
             headers: {
@@ -33,18 +36,19 @@ function CsvUploader() {
         );
 
         if (response.data.success) {
-          setMessage("Successfully uploaded items!");
+          setMessage("Successfully uploaded items!", { severity: "success" });
           response.data.items.forEach((item) => addPurchaseOrder(item));
+          setErrors([]);
         } else {
-          setMessage(`Errors: ${response.data.errors.join(", ")}`);
+          setErrors(response.data.errors);
         }
       } catch (error) {
-        setMessage("An error occurred while uploading.");
+        setErrors(["An error occurred while uploading."]);
       }
 
       setSnackbarOpen(true);
     } else {
-      setMessage("Please select a valid CSV file.");
+      setErrors(["Please select a valid CSV file."]);
       setSnackbarOpen(true);
     }
   };
@@ -54,7 +58,6 @@ function CsvUploader() {
   };
 
   return (
-    // padding
     <div className="App__CsvUploaderContainer">
       <Typography variant="h4" component="div" gutterBottom>
         Upload Purchase Order
@@ -73,12 +76,24 @@ function CsvUploader() {
       >
         Upload CSV
       </Button>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        message={message}
-      />
+      <br />
+      {/* errors list in red*/}
+      <div className="App__CsvUploaderErrors">
+        {errors.map((error) => (
+          <Typography variant="body1" component="li" gutterBottom color="red">
+            {error}
+          </Typography>
+        ))}
+      </div>
+      {/* Snackbar messages */}
+      {message && (
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={10000}
+          onClose={handleCloseSnackbar}
+          message={message}
+        />
+      )}
     </div>
   );
 }
