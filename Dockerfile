@@ -4,15 +4,13 @@ FROM node:20-buster
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and yarn.lock first to leverage Docker caching
-COPY ./server/package.json ./server/yarn.lock ./
-
-# Install app dependencies
-RUN yarn install
-
 # Copy the rest of the files
-COPY ./server ./
+COPY ./server ./server
 COPY ./frontend ./frontend
+
+# Install the server dependencies
+WORKDIR /app/server
+RUN yarn install
 
 # Build the frontend
 WORKDIR /app/frontend

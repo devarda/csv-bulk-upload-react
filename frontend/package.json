@@ -1,5 +1,10 @@
 {
   "name": "frontend",
+  "license": "MIT",
+  "author": {
+    "name": "Arda Tezjon",
+    "email": "50584220+devarda@users.noreply.github.com"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,7 +26,7 @@
   },
   "proxy": "http://localhost:3000",
   "scripts": {
-    "start": "REACT_APP_API_HOST=http://localhost:3000 PORT=3001 react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -50,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "jest-mock-axios": "4.5.0"
   }
 }

@@ -23,10 +23,10 @@ services:
       MYSQL_DATABASE: purchases
       MYSQL_USER: user
       MYSQL_PASSWORD: pass_oct_10_2023
-      APP_ENV: production
-      REACT_APP_API_HOST: http://localhost:3000
+      NODE_ENV: production
     depends_on:
       - db
+    command: ["sh", "-c", "sleep 5 && yarn start"]
 
 volumes:
   db-data:

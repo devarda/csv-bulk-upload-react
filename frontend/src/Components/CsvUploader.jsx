@@ -31,8 +31,7 @@ function CsvUploader() {
       try {
         const response = await axios.post(
           //host from .env
-          process.env.REACT_APP_API_HOST +
-            "/api/v1/purchase-orders/bulk-insert",
+          "/api/v1/purchase-orders/bulk-insert",
           formData,
           {
             headers: {

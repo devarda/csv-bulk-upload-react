@@ -1,5 +1,10 @@
 {
-  "name": "take-home-project",
+  "name": "api-server",
+  "license": "MIT",
+  "author": {
+    "name": "Arda Tezjon",
+    "email": "50584220+devarda@users.noreply.github.com"
+  },
   "version": "0.0.0",
   "private": true,
   "scripts": {

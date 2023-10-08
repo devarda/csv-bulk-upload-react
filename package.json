@@ -1,8 +1,14 @@
 {
+  "license": "MIT",
+  "name": "take-home-project",
+  "author": {
+    "name": "Arda Tezjon",
+    "email": "50584220+devarda@users.noreply.github.com"
+  },
   "scripts": {
-    "start": "npm run start:server",
-    "start:server": "node server/bin/www",
-    "dev": "nodemon server.js",
+    "start": "docker-compose up --build",
+    "dev:server": "nodemon server/bin/www",
+    "dev:frontend": "cd frontend && yarn start",
     "test": "cd frontend && yarn test --watchAll=false && cd ../server && yarn test"
   }
 }
