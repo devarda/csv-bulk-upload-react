@@ -19,9 +19,9 @@ function App() {
   useEffect(() => {
     const fetchPurchaseOrders = async () => {
       try {
-        const response = await fetch("/api/purchase-orders/list");
+        const response = await fetch("/api/v1/purchase-orders/list");
         const data = await response.json();
-        if (data.success) {
+        if (data.success && data.purchaseOrders?.length) {
           PurchaseOrdersStore.setPurchaseOrders(data.purchaseOrders);
         }
       } catch (err) {
