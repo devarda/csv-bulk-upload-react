@@ -2,6 +2,7 @@
   "scripts": {
     "start": "npm run start:server",
     "start:server": "node server/bin/www",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "test": "cd frontend && yarn test --watchAll=false && cd ../server && yarn test"
   }
 }

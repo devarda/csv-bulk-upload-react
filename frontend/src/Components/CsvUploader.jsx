@@ -61,7 +61,7 @@ function CsvUploader() {
 
   return (
     <div className="App__CsvUploaderContainer">
-      <Typography variant="h4" component="div" gutterBottom>
+      <Typography variant="h4" component="div" gutterBottom id="uploadLabel">
         Upload Purchase Order
       </Typography>
       <input
@@ -70,6 +70,7 @@ function CsvUploader() {
         hidden
         accept=".csv"
         onChange={handleUpload}
+        aria-labelledby="uploadLabel"
       />
       <Button
         variant="contained"
