@@ -44,6 +44,8 @@ function Navigation() {
         data = `Model Number,Unit Price,Quantity
            Blueridge BMY917,fifteen,5
            Blueridge BMY1817,,3
+           Blueridge BMY1847,-14,3
+           Blueridge BMY1840,0,3
            Blueridge BMY2417,twenty-five,10`;
         break;
       case "Incorrect Quantity":
