@@ -53,6 +53,13 @@ function Navigation() {
            Blueridge BMY1817,20.49,-1
            Blueridge BMY2417,25.00,`;
         break;
+      case "Wrong Headers":
+        data = `Model,UntPrc,Qty
+           Blueridge BMY917,15.99,5
+           Blueridge BMY1817,20.49,3
+           Blueridge BMY2417,25.00,10
+           Blueridge BMY2417,25.00,10`;
+        break;
       default:
         console.error("Unknown template type:", templateType);
         return;
@@ -105,6 +112,9 @@ function Navigation() {
           </MenuItem>
           <MenuItem onClick={() => handleDownload("Incorrect Quantity")}>
             Example Incorrect Quantity
+          </MenuItem>
+          <MenuItem onClick={() => handleDownload("Wrong Headers")}>
+            Example Wrong Headers
           </MenuItem>
         </Menu>
       </Toolbar>
