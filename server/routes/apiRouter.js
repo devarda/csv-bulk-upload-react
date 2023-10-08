@@ -55,6 +55,9 @@ router.post(
         // Validate each row's data
         const validationErrors = validatePurchaseOrder(rowNumber, row); // Implement your validation function
         if (validationErrors.length === 0) {
+          //trim whitespace from model number
+          row["Model Number"] = row["Model Number"].trim();
+          // Add the row to the array of purchase orders
           purchaseOrders.push(row);
         } else {
           errors.push(...validationErrors);
