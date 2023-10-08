@@ -20,8 +20,6 @@ async function startup() {
 
   await connection.query(createTableQuery);
   console.log("Table created");
-
-  await connection.end();
 }
 
 module.exports = startup;
