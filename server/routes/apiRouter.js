@@ -83,7 +83,17 @@ router.post(
               ]),
             ]);
 
-            res.json({ success: true, purchaseOrders });
+            res.json({
+              success: true,
+              purchaseOrders: purchaseOrders.map((row) => {
+                return {
+                  model_number: row["Model Number"],
+                  unit_price: row["Unit Price"],
+                  quantity: row.Quantity,
+                  created_date: new Date(),
+                };
+              }),
+            });
           } catch (err) {
             res.status(400).json({ success: false, error: err });
           }

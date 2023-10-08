@@ -10,7 +10,7 @@ function PurchaseOrdersTable() {
 
   // Transform data to fit DataGrid requirements
   const rows = purchaseOrders.map((order, index) => ({
-    id: index, // Assign unique id based on array index or you can use any unique value from your data
+    id: Math.random() * 1000 + index,
     ...order,
   }));
 

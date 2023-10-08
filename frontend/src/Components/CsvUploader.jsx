@@ -20,6 +20,9 @@ function CsvUploader() {
   const [errors, setErrors] = React.useState([]);
 
   const handleUpload = async (event) => {
+    setMessage("");
+    setSnackbarOpen(false);
+
     const file = event.target.files[0];
     if (file && file.type === "text/csv") {
       const formData = new FormData();
@@ -40,18 +43,20 @@ function CsvUploader() {
 
         if (response.data.success) {
           setMessage("Successfully uploaded items!");
-          response.data.items.forEach((item) => addPurchaseOrder(item));
+          setSnackbarOpen(true);
+          response.data.purchaseOrders.forEach((item) =>
+            addPurchaseOrder(item)
+          );
           setErrors([]);
         } else {
           setErrors(response.data.errors);
         }
       } catch (error) {
         setErrors(["An error occurred while uploading."]);
-        setSnackbarOpen(true);
+        console.error(error);
       }
     } else {
       setErrors(["Please select a valid CSV file."]);
-      setSnackbarOpen(true);
     }
   };
 
