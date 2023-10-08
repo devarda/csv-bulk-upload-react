@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "start": "npm run start:server",
+    "start:server": "node server/bin/www",
+    "dev": "nodemon server.js"
+  }
+}

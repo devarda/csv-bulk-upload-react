@@ -1,0 +1,127 @@
+#!/usr/bin/env node
+const path = require("path");
+
+//if dev environment use .env file
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config({ path: path.join(__dirname, "../../.env") });
+  console.log("Using .env file for dev environment variables");
+}
+
+//missing environment variables check
+const requiredEnvVariables = [
+  "MYSQL_PASSWORD",
+  "MYSQL_USER",
+  "MYSQL_DATABASE",
+  "MYSQL_HOST",
+];
+
+const missingEnvVariables = requiredEnvVariables.filter((envVariable) => {
+  return !process.env[envVariable];
+});
+
+if (missingEnvVariables.length > 0) {
+  console.error(
+    `Missing environment variables: ${missingEnvVariables.join(", ")}`
+  );
+  process.exit(1);
+}
+
+//startup function
+const startupFunction = require("../startupFunction");
+startupFunction()
+  .then(() => {
+    console.log("Startup complete");
+
+    //standard boilerplate code for express server
+
+    /**
+     * Module dependencies.
+     */
+
+    const app = require("../app");
+    const debug = require("debug")("take-home-project:server");
+    const http = require("http");
+
+    /**
+     * Get port from environment and store in Express.
+     */
+
+    const port = normalizePort(process.env.PORT || "3000");
+    app.set("port", port);
+
+    /**
+     * Create HTTP server.
+     */
+
+    const server = http.createServer(app);
+
+    /**
+     * Listen on provided port, on all network interfaces.
+     */
+
+    server.listen(port);
+    server.on("error", onError);
+    server.on("listening", onListening);
+
+    /**
+     * Normalize a port into a number, string, or false.
+     */
+
+    function normalizePort(val) {
+      const port = parseInt(val, 10);
+
+      if (isNaN(port)) {
+        // named pipe
+        return val;
+      }
+
+      if (port >= 0) {
+        // port number
+        return port;
+      }
+
+      return false;
+    }
+
+    /**
+     * Event listener for HTTP server "error" event.
+     */
+
+    function onError(error) {
+      if (error.syscall !== "listen") {
+        throw error;
+      }
+
+      const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+
+      // handle specific listen errors with friendly messages
+      switch (error.code) {
+        case "EACCES":
+          console.error(bind + " requires elevated privileges");
+          process.exit(1);
+          break;
+        case "EADDRINUSE":
+          console.error(bind + " is already in use");
+          process.exit(1);
+          break;
+        default:
+          throw error;
+      }
+    }
+
+    /**
+     * Event listener for HTTP server "listening" event.
+     */
+
+    function onListening() {
+      const addr = server.address();
+      const bind =
+        typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+      debug("Listening on " + bind);
+      console.log(`Listening on http://localhost:${addr.port}`);
+    }
+  })
+  .catch((error) => {
+    console.error("Error during startup:", error);
+    process.exit(1);
+  });
