@@ -7,10 +7,8 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import MenuIcon from "@mui/icons-material/Menu";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 function Navigation() {
@@ -26,11 +24,15 @@ function Navigation() {
   function handleDownload(templateType) {
     let data = "";
     switch (templateType) {
+      case "Blank":
+        data = `Model Number,Unit Price,Quantity
+             `;
+        break;
       case "Correct":
         data = `Model Number,Unit Price,Quantity
-           Blueridge BMY917,15.99,5
-           Blueridge BMY1817,20.49,3
-           Blueridge BMY2417,25.00,10`;
+               Blueridge BMY917,15.99,5
+               Blueridge BMY1817,20.49,3
+               Blueridge BMY2417,25.00,10`;
         break;
       case "Incorrect Model Number":
         data = `Model Number,Unit Price,Quantity
@@ -89,17 +91,20 @@ function Navigation() {
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
         >
+          <MenuItem onClick={() => handleDownload("Blank")}>
+            Blank Template
+          </MenuItem>
           <MenuItem onClick={() => handleDownload("Correct")}>
-            Correct Template
+            Example Correct Template
           </MenuItem>
           <MenuItem onClick={() => handleDownload("Incorrect Model Number")}>
-            Incorrect Model Number Template
+            Example Incorrect Model Number
           </MenuItem>
           <MenuItem onClick={() => handleDownload("Incorrect Unit Price")}>
-            Incorrect Unit Price Template
+            Example Incorrect Unit Price
           </MenuItem>
           <MenuItem onClick={() => handleDownload("Incorrect Quantity")}>
-            Incorrect Quantity Template
+            Example Incorrect Quantity
           </MenuItem>
         </Menu>
       </Toolbar>
