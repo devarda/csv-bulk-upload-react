@@ -47,9 +47,8 @@ function CsvUploader() {
         }
       } catch (error) {
         setErrors(["An error occurred while uploading."]);
+        setSnackbarOpen(true);
       }
-
-      setSnackbarOpen(true);
     } else {
       setErrors(["Please select a valid CSV file."]);
       setSnackbarOpen(true);
@@ -93,8 +92,14 @@ function CsvUploader() {
       <br />
       {/* errors list in red*/}
       <div className="App__CsvUploaderErrors">
-        {errors.map((error) => (
-          <Typography variant="body1" component="li" gutterBottom color="red">
+        {errors.map((error, index) => (
+          <Typography
+            key={index}
+            variant="body1"
+            component="li"
+            gutterBottom
+            color="red"
+          >
             {error}
           </Typography>
         ))}
